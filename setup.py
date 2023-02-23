@@ -5,7 +5,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="hexgen",
-    description="Realistic world generation via a hexmap",
+    description="Realistic world generation via a hexmap for RPGs",
     packages=find_packages(),
     install_requires=required,
 )
