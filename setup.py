@@ -8,4 +8,5 @@ setup(
         "Pillow==9.4.0",
         "NumPy==1.24.2",
     ],
+    version="0.0.1",
 )
