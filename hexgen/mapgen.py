@@ -973,6 +973,7 @@ class MapGen:
                 data["geoforms"].append(geoform.to_dict())
             for territory in self.territories:
                 data["territories"].append(territory.to_dict())
+        return data
 
     def export(self, filename, pretty_copy=False):
         """Export the map data as a JSON file"""
