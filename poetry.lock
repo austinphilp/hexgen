@@ -119,6 +119,21 @@ files = [
 ]
 
 [[package]]
+name = "compact-json"
+version = "1.5.0"
+description = "A JSON formatter that produces compact but human-readable"
+category = "main"
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "compact_json-1.5.0-py3-none-any.whl", hash = "sha256:710a4af6f8e3d5a05748d1fcea8631c8c769dce0e016408f3693cd1142ec227a"},
+    {file = "compact_json-1.5.0.tar.gz", hash = "sha256:0965c4f3a3b85dbcdfd87032553123d969de1c75ebbe997d7e62490467d99649"},
+]
+
+[package.dependencies]
+wcwidth = ">=0.2.5,<0.3.0"
+
+[[package]]
 name = "decorator"
 version = "5.1.1"
 description = "Decorators for Humans"
@@ -1129,7 +1144,7 @@ test = ["covdefaults (>=2.2.2)", "coverage (>=7.1)", "coverage-enable-subprocess
 name = "wcwidth"
 version = "0.2.6"
 description = "Measures the displayed width of unicode strings in a terminal"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -1140,4 +1155,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f179f55e0d4b20ebf5ebde9d50faea21ef31582a02c16beb7612397d5687389b"
+content-hash = "903949ebb7ba85782e3bf86c8661b009c20e1b82691d8c2733f54ddbdfb67d90"

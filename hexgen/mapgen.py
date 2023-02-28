@@ -4,6 +4,8 @@ import math
 import random
 import sys
 
+from compact_json import Formatter
+
 from hexgen.calendar import Calendar
 from hexgen.enums import GeoformType, Hemisphere, HexResourceRating, HexResourceType, MapType, OceanType
 from hexgen.geoform import Geoform
@@ -897,8 +899,7 @@ class MapGen:
                 seg.append(s.side)
         return seg
 
-    def export(self, filename):
-        """Export the map data as a JSON file"""
+    def to_dict(self):
         with Timer("Compiling data into dictionary", self.debug):
             params = copy.copy(self.params)
             params["map_type"] = params.get("map_type").to_dict()
@@ -914,6 +915,7 @@ class MapGen:
                 },
                 "hexes": [],
                 "geoforms": [],
+                "territories": [],
             }
 
             def edge_dict(edge):
@@ -957,12 +959,36 @@ class MapGen:
                                 "south_west": edge_dict(h.edge_south_west),
                                 "south_east": edge_dict(h.edge_south_east),
                             },
+                            "territory": getattr(h.territory, "id", None),
+                            "resource": {
+                                "type": h.resource["type"].title,
+                                "rating": h.resource["rating"].title,
+                            }
+                            if h.resource
+                            else None,
                         }
                     )
                 data["hexes"].append(row_data)
             for geoform in self.geoforms:
                 data["geoforms"].append(geoform.to_dict())
+            for territory in self.territories:
+                data["territories"].append(territory.to_dict())
+
+    def export(self, filename, pretty_copy=False):
+        """Export the map data as a JSON file"""
+        data = self.to_dict()
         with open(filename, "w") as outfile:
             with Timer("Writing data to JSON file", self.debug):
                 json.dump(data, outfile)
+        if pretty_copy:
+            formatter = Formatter()
+            formatter.indent_spaces = 2
+            formatter.max_inline_length = 100
+            if filename.endswith(".json"):
+                filename = filename.replace(".json", "-pretty.json")
+            else:
+                filename += "-pretty"
+            with open(filename, "w") as outfile:
+                with Timer("Writing data to human readable JSON file", self.debug):
+                    outfile.write(formatter.serialize(data))
         return data

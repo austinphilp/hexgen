@@ -1,5 +1,6 @@
 import random
 import sys
+from collections import defaultdict
 
 sys.setrecursionlimit(1500)
 
@@ -128,3 +129,33 @@ class Territory:
     @property
     def size(self):
         return len(self.members)
+
+    def to_dict(self):
+        resources = defaultdict(dict)
+        for hex in self.members:
+            if hex.resource is not None:
+                res_type = hex.resource["type"].title
+                res_rating = hex.resource["rating"].title
+                if res_rating in resources[res_type]:
+                    resources[res_type][res_rating] += 1
+                else:
+                    resources[res_type][res_rating] = 1
+        biomes = []
+        for b in self.biomes:
+            biomes.append(
+                {
+                    "title": b["biome"].title,
+                    "count": b["count"],
+                    "perc": round((b["count"] / self.size) * 100, 2),
+                }
+            )
+        return {
+            "id": self.id,
+            "size": self.size,
+            "color": self.color,
+            "landlocked": self.landlocked,
+            "average temperature": self.avg_temp,
+            "average moisture": self.avg_moisture,
+            "resources": resources,
+            "neighbors": [n.id for n in self.neighbors],
+        }

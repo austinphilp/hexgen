@@ -125,27 +125,17 @@ class HexResourceRating(SuperEnum):
 class HexResourceType(SuperEnum):
     __keys__ = ["id", "rarity", "title", "material", "yield", "color"]
 
-    iron_vein = (1, 15, "Iron Vein", 1000, "commonmetals", (100, 0, 0))
-    copper_vein = (2, 15, "Copper Vein", 1000, "commonmetals", (0, 100, 0))
-    silver_vein = (3, 15, "Silver Vein", 1000, "commonmetals", (0, 0, 100))
-    lead_vein = (4, 15, "Lead Vein", 1000, "commonmetals", (100, 0, 100))
-    aluminum_vein = (5, 15, "Aluminum Vein", 1000, "commonmetals", (50, 150, 50))
-    tin_vein = (6, 15, "Tin Vein", 1000, "commonmetals", (150, 50, 50))
-    titanium_vein = (7, 15, "Titanium Vein", 1000, "commonmetals", (200, 50, 200))
-    magnesium_vein = (8, 15, "Magnesium Vein", 1000, "commonmetals", (50, 200, 50))
+    iron_vein = (1, 100, "Iron Vein", 1000, "commonmetals", (100, 0, 0))
+    copper_vein = (2, 80, "Copper Vein", 1000, "commonmetals", (0, 100, 0))
+    lead_vein = (4, 60, "Lead Vein", 1000, "commonmetals", (100, 0, 100))
+    zinc_vein = (6, 20, "Zinc Vein", 1000, "commonmetals", (150, 50, 50))
+    tin_vein = (6, 20, "Tin Vein", 1000, "commonmetals", (150, 50, 50))
 
-    gold_ore_deposit = (9, 1, "Gold Ore Deposit", 500, "preciousmetals", (255, 0, 0))
-    chromite_ore_deposit = (10, 3, "Chromite Ore Deposit", 500, "preciousmetals", (255, 255, 0))
-    monazite_ore_deposit = (11, 5, "Monazite Ore Deposit", 500, "preciousmetals", (0, 0, 255))
-    bastnasite_ore_deposit = (12, 4, "Bastnasite Ore Deposit", 500, "preciousmetals", (0, 125, 200))
-    xenotime_ore_deposit = (13, 1, "Xenotime Ore Deposit", 500, "preciousmetals", (200, 125, 0))
-
-    graphite_deposit = (14, 10, "Graphite Deposit", 1500, "carbon", (0, 0, 0))
-    coal_deposit = (15, 30, "Coal Deposit", 1500, "carbon", (255, 255, 255))
-
-    quartz_deposit = (16, 7, "Quartz Vein", 1000, "silicon", (80, 80, 80))
-
-    uranium_ore_deposit = (17, 1, "Uranium Ore Deposit", 10, "uranium", (255, 50, 50))
+    silver_vein = (3, 20, "Silver Vein", 1000, "preciousmetals", (0, 0, 100))
+    gold_ore_deposit = (7, 10, "Gold Ore Deposit", 500, "preciousmetals", (255, 0, 0))
+    adamantine_ore_deposit = (3, 10, "Adamantine Ore Deposit", 500, "preciousmetals", (55, 89, 68))
+    mithril_ore_deposit = (1, 10, "Mithril Ore Deposit", 500, "preciousmetals", (52, 140, 235))
+    coal_deposit = (15, 20, "Coal Deposit", 1500, "carbon", (255, 255, 255))
 
 
 class HexEdge(SuperEnum):

@@ -533,7 +533,7 @@ class Hex:
 
     @property
     def is_coast(self):
-        return any(x.is_land for x in self.surrounding)
+        return any(x.is_water for x in self.surrounding)
 
     def decide_slope(self, one, two):
         """Returns UP, DOWN tuple"""
