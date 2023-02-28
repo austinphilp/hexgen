@@ -922,7 +922,6 @@ class MapGen:
                 return dict(is_river=edge.is_river, is_coast=edge.is_coast, direction=edge.direction.name)
 
             for x, row in enumerate(self.hex_grid.grid):
-                row_data = []
                 for y, col in enumerate(row):
                     h = self.hex_grid.find_hex(x, y)
                     color_temperature = (
@@ -931,7 +930,7 @@ class MapGen:
                         (h.color_temperature[0][2] + h.color_temperature[1][2]) / 2,
                     )
                     temperature = round((h.temperature[0] + h.temperature[1]) / 2, 2)
-                    row_data.append(
+                    data["hexes"].append(
                         {
                             "id": h.id.hex,
                             "x": x,
@@ -968,7 +967,6 @@ class MapGen:
                             else None,
                         }
                     )
-                data["hexes"].append(row_data)
             for geoform in self.geoforms:
                 data["geoforms"].append(geoform.to_dict())
             for territory in self.territories:
