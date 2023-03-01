@@ -23,6 +23,13 @@ class RiverSegment:
     def __repr__(self):
         return "<RiverSegment X: {}, Y: {}, side: {}>".format(self.x, self.y, self.side)
 
+    def to_dict(self):
+        return {
+            "x": self.x,
+            "y": self.y,
+            "edge": self.side.value,
+        }
+
     @property
     def size(self):
         """

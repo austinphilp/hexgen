@@ -591,6 +591,8 @@ class MapGen:
         print("Placed river sources") if self.debug else False
 
         # TODO - refactor to make my eyes bleed less
+        # TODO - It also seems that there is a potential for an infinite loop somewhere in here. Approx 1/10 generations gets
+        # stuck here
         for r in self.rivers_sources:  # loop over each source segment
             segment = r  # river segment we are looking at
             finished = False
@@ -895,6 +897,12 @@ class MapGen:
         return seg
 
     def to_dict(self):
+        def river_list(source):
+            river = [source]
+            while (next := river[-1].next) is not None:
+                river.append(next)
+            return [r.to_dict() for r in river]
+
         with Timer("Compiling data into dictionary", self.debug):
             params = copy.copy(self.params)
             params["map_type"] = params.get("map_type").to_dict()
@@ -911,6 +919,7 @@ class MapGen:
                 "hexes": [],
                 "geoforms": [],
                 "territories": [],
+                "rivers": [river_list(source) for source in self.rivers_sources],
             }
 
             def edge_dict(edge):
