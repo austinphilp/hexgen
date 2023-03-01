@@ -2,7 +2,6 @@ import copy
 import json
 import math
 import random
-import sys
 
 from compact_json import Formatter
 
@@ -24,8 +23,6 @@ from hexgen.util import (
     is_strait,
     pressure_at_seasons,
 )
-
-sys.setrecursionlimit(10000)
 
 default_params = {
     "map_type": MapType.terran,
@@ -730,17 +727,16 @@ class MapGen:
                         if h.geoform_type is not None:
                             self.geoforms.append(Geoform(set([h]), h.geoform_type))
 
-            def flood(found, current, hex_type):
+            def flood(hex):
                 """Do a flood fill at this hex over all hexes of this type without geoforms"""
-                if current.geoform_type is not None:
-                    return set()
-                if current in found:
-                    return set()
-                neighbors = [h[1] for h in current.neighbors]
-                found.add(current)
-                for neighbor in neighbors:
-                    if neighbor.type is hex_type:
-                        found.update(flood(found, neighbor, hex_type))
+                found = set([hex])
+                all_neighbors = set([h[1] for h in hex.neighbors])
+                while len(all_neighbors) > 0 and (current := all_neighbors.pop()):
+                    if current.geoform_type is not None or current in found:
+                        continue
+                    found.add(current)
+                    current_neighbors = [h[1] for h in current.neighbors]
+                    all_neighbors.update({neighbor for neighbor in current_neighbors if neighbor.type is hex.type})
                 return found
 
             def give_geoform(hexes, geoform_type):
@@ -750,12 +746,11 @@ class MapGen:
             # loop until every fucking hex has a geoform
             # import ipdb; ipdb.set_trace()
             with Timer("\tFinding contiguous geoforms", self.debug):
-                sys.setrecursionlimit(10000)
                 current = first_hex_without_geoform(self.hex_grid.grid)
                 while current is not None:
                     if current.is_land:
                         # try to find continents
-                        hexes = flood(set(), current, current.type)
+                        hexes = flood(current)
                         if len(hexes) < 25:
                             geotype = GeoformType.small_island
                         elif len(hexes) < 100:
@@ -764,7 +759,7 @@ class MapGen:
                             geotype = GeoformType.continent
                     else:
                         # try to find oceans
-                        hexes = flood(set(), current, current.type)
+                        hexes = flood(current)
                         if len(hexes) < 3:
                             geotype = GeoformType.lake
                         elif len(hexes) < 100:
@@ -943,6 +938,7 @@ class MapGen:
                             "is_inland": h.is_inland,
                             "is_coast": h.is_coast,
                             "geoform": h.geoform.id.hex,
+                            "features": list(h.features),
                             "colors": {
                                 "satellite": h.color_satellite,
                                 "terrain": h.color_terrain,

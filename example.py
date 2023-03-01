@@ -14,5 +14,5 @@ options = {
     "num_territories": 20,
 }
 
-gen = generate(options, image=False)
+gen = generate(options, image=True)
 gen.export("output/world-data.json", pretty_copy=True)
