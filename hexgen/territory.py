@@ -84,26 +84,37 @@ class Territory:
         # print("Territory {}: Members: {}".format(self.id, len(self.members)))
 
         def find_unmarked():
+            # TODO - Make this more sane
             while True:
                 found = random.choice(self.members)
                 if found.marked is False:
                     return found
 
         def step(sh, group):
-            if sh.marked:
-                return
-            else:
-                sh.marked = True
-                group.append(sh)
+            all_surrounding = set([sh])
+            while len(all_surrounding) > 0 and (sh := all_surrounding.pop()):
+                if sh.marked:
+                    continue
+                else:
+                    sh.marked = True
+                    group.append(sh)
+                all_surrounding.update({s for s in sh.map_surrounding if s.is_land and s.territory == self and s.marked is False})
 
-            sur = [
-                s
-                for s in sh.map_surrounding
-                if s.is_land and s.territory is not None and s.territory == self and s.marked is False
-            ]
-            # print("\t\tStep into HEX: {}, {} -> Found: {}".format(sh.x, sh.y, len(sur)))
-            for h in sur:
-                step(h, group)
+        # def step(sh, group):
+        #     if sh.marked:
+        #         return
+        #     else:
+        #         sh.marked = True
+        #         group.append(sh)
+
+        #     sur = [
+        #         s
+        #         for s in sh.map_surrounding
+        #         if s.is_land and s.territory is not None and s.territory == self and s.marked is False
+        #     ]
+        #     # print("\t\tStep into HEX: {}, {} -> Found: {}".format(sh.x, sh.y, len(sur)))
+        #     for h in sur:
+        #         step(h, group)
 
         def num_marked():
             return len([h for h in self.members if h.marked])
