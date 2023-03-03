@@ -902,7 +902,7 @@ class MapGen:
             current = source
             while current.next is not None:
                 current = current.next
-                river.append(current)
+                river.append(current.to_dict())
             return river
 
         with Timer("Compiling data into dictionary", self.debug):
