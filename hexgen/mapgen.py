@@ -898,10 +898,12 @@ class MapGen:
 
     def to_dict(self):
         def river_list(source):
-            river = [source]
-            while (next := river[-1].next) is not None:
-                river.append(next)
-            return [r.to_dict() for r in river]
+            river = [source.to_dict()]
+            current = source
+            while current.next is not None:
+                current = current.next
+                river.append(current)
+            return river
 
         with Timer("Compiling data into dictionary", self.debug):
             params = copy.copy(self.params)
