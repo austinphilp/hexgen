@@ -125,17 +125,17 @@ class HexResourceRating(SuperEnum):
 class HexResourceType(SuperEnum):
     __keys__ = ["id", "rarity", "title", "material", "yield", "color"]
 
-    iron = (1, 100, "Iron Vein", 1000, "commonmetals", (100, 0, 0))
-    copper = (2, 80, "Copper Vein", 1000, "commonmetals", (0, 100, 0))
-    lead = (4, 60, "Lead Vein", 1000, "commonmetals", (100, 0, 100))
-    zinc = (6, 20, "Zinc Vein", 1000, "commonmetals", (150, 50, 50))
-    tin = (6, 20, "Tin Vein", 1000, "commonmetals", (150, 50, 50))
+    iron = (1, 100, "Iron", 1000, "commonmetals", (100, 0, 0))
+    copper = (2, 80, "Copper", 1000, "commonmetals", (0, 100, 0))
+    lead = (4, 60, "Lead", 1000, "commonmetals", (100, 0, 100))
+    zinc = (6, 20, "Zinc", 1000, "commonmetals", (150, 50, 50))
+    tin = (6, 20, "Tin", 1000, "commonmetals", (150, 50, 50))
 
-    silver = (3, 20, "Silver Vein", 1000, "preciousmetals", (0, 0, 100))
-    gold = (7, 10, "Gold Ore Deposit", 500, "preciousmetals", (255, 0, 0))
-    adamantine = (3, 10, "Adamantine Ore Deposit", 500, "preciousmetals", (55, 89, 68))
-    mithril = (1, 10, "Mithril Ore Deposit", 500, "preciousmetals", (52, 140, 235))
-    coal = (15, 20, "Coal Deposit", 1500, "carbon", (255, 255, 255))
+    silver = (3, 20, "Silver", 1000, "preciousmetals", (0, 0, 100))
+    gold = (7, 10, "Gold", 500, "preciousmetals", (255, 0, 0))
+    adamantine = (3, 10, "Adamantine", 500, "preciousmetals", (55, 89, 68))
+    mithril = (1, 10, "Mithril", 500, "preciousmetals", (52, 140, 235))
+    coal = (15, 20, "Coal", 1500, "carbon", (255, 255, 255))
 
 
 class HexEdge(SuperEnum):
