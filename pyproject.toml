@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hexgen"
-version = "0.2.7"
+version = "0.2.8"
 description = "generate world hex maps"
 authors = ["Austin Philp <austinphilp@gmail.com>"]
 license = "GNU General Public License v3.0"

@@ -446,14 +446,16 @@ class Hex:
         Returns a list of all surrounding hexes
         Returns: Hex
         """
-        return [
-            self.hex_east,
-            self.hex_south_east,
-            self.hex_south_west,
-            self.hex_west,
-            self.hex_north_west,
-            self.hex_north_east,
-        ]
+        # No longer wrap around map
+        return self.map_surrounding
+        # return [
+        #     self.hex_east,
+        #     self.hex_south_east,
+        #     self.hex_south_west,
+        #     self.hex_west,
+        #     self.hex_north_west,
+        #     self.hex_north_east,
+        # ]
 
     @property
     def neighbors(self):
