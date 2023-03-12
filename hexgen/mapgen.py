@@ -46,6 +46,7 @@ default_params = {
     "num_rivers": 50,
     # territories
     "num_territories": 0,
+    "resource_chance_modifier": 1,
 }
 
 
@@ -260,8 +261,10 @@ class MapGen:
                 combined.append(dict(rating=r, type=t))
         for h in self.hex_grid.hexes:
             for resource in combined:
-                chance = (resource.get("rating").rarity * resource.get("type").rarity * self.hex_grid.size / 1000) / (
-                    math.pow(self.hex_grid.size, 2)
+                chance = (
+                    (resource.get("rating").rarity * resource.get("type").rarity * self.hex_grid.size / 1000)
+                    / (math.pow(self.hex_grid.size, 2))
+                    * self.params["resource_chance_modifier"]
                 )
                 given = random.uniform(0, 1)
                 if given <= chance:
